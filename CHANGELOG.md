@@ -1,8 +1,12 @@
 # Changelog
 
+## 60.6.1-6 (2019/03/23)
+
+* Firefox ESR 60.6.1
+
 ## 60.6.0-5 (2019/03/20)
 
-* Upgrade to Firefox ESR 60.6.0
+* Firefox ESR 60.6.0
 
 ## 60.5.2-4 (2019/03/18)
 
