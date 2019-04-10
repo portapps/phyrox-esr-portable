@@ -11,7 +11,6 @@ import (
 	"os"
 	"path"
 
-	_ "github.com/kevinburke/go-bindata"
 	"github.com/portapps/firefox-esr-portable/assets"
 	. "github.com/portapps/portapps"
 	"github.com/portapps/portapps/pkg/dialog"
