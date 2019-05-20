@@ -1,5 +1,10 @@
 # Changelog
 
+## 60.7.0-9 (2019/05/20)
+
+* Firefox ESR 60.7.0
+* Portapps 1.24.1
+
 ## 60.6.3-8 (2019/05/08)
 
 * Firefox ESR 60.6.3
