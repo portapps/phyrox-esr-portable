@@ -1,5 +1,10 @@
 # Changelog
 
+## 60.7.0-10 (2019/05/21)
+
+* Add config param to change locale
+* Make Firefox ESR multilingual
+
 ## 60.7.0-9 (2019/05/20)
 
 * Firefox ESR 60.7.0
