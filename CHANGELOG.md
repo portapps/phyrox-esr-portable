@@ -1,5 +1,9 @@
 # Changelog
 
+## 60.7.0-11 (2019/06/06)
+
+* Extensions break on path change (Issue portapps/firefox-portable#2)
+
 ## 60.7.0-10 (2019/05/21)
 
 * Add config param to change locale
