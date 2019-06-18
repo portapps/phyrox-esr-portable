@@ -1,5 +1,9 @@
 # Changelog
 
+## 60.7.1-12 (2019/06/18)
+
+* Firefox ESR 60.7.1
+
 ## 60.7.0-11 (2019/06/06)
 
 * Extensions break on path change (Issue portapps/firefox-portable#2)
