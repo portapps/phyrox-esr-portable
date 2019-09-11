@@ -1,11 +1,21 @@
 # Changelog
 
-## 68.1.0-19 (2019/09/02)
+## 68.1.0-23 (2019/09/11)
+
+* Fix addons disabled on startup (Issue #1)
+
+## 60.9.0-22 (2019/09/11)
+
+* Firefox ESR 60.9.0
+* Fix addons disabled on startup (Issue #1)
+* Portapps 1.26.1
+
+## 68.1.0-20 (2019/09/02)
 
 * Firefox ESR 68.1.0
 * Portapps 1.26.0
 
-## 68.0.2-18 (2019/08/14)
+## 68.0.2-19 (2019/08/14)
 
 * Firefox ESR 68.0.2
 * Portapps 1.25.0
