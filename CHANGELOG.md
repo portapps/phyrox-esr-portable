@@ -1,6 +1,6 @@
 # Changelog
 
-## 68.1.0-23 (2019/09/11)
+## 68.1.0-25 (2019/09/11)
 
 * Fix addons disabled on startup (Issue #1)
 
