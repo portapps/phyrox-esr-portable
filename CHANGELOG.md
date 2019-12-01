@@ -1,5 +1,10 @@
 # Changelog
 
+## 68.2.0-27 (2019/12/01)
+
+* Following a trademark violation report (#5), name and logo has been changed
+* Portapps 1.30.1
+
 ## 68.2.0-26 (2019/10/22)
 
 * Firefox ESR 68.2.0
@@ -8,12 +13,12 @@
 ## 68.1.0-25 (2019/09/11)
 
 * Firefox ESR 68.1.0
-* Fix addons disabled on startup (Issue #1)
+* Fix addons disabled on startup (#1)
 
 ## 60.9.0-22 (2019/09/11)
 
 * Firefox ESR 60.9.0
-* Fix addons disabled on startup (Issue #1)
+* Fix addons disabled on startup (#1)
 * Portapps 1.26.1
 
 ## 68.1.0-20 (2019/09/02)
@@ -40,7 +45,7 @@
 
 ## 60.7.0-11 (2019/06/06)
 
-* Extensions break on path change (Issue portapps/firefox-portable#2)
+* Extensions break on path change (portapps/firefox-portable#2)
 
 ## 60.7.0-10 (2019/05/21)
 

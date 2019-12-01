@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="firefox-esr" basedir=".">
+<project name="phyrox-esr" basedir=".">
 
-  <dirname property="app.basedir" file="${ant.file.firefox-esr}"/>
+  <dirname property="app.basedir" file="${ant.file.phyrox-esr}"/>
   <property name="build.properties" value="${app.basedir}/build.properties"/>
   <property file="${build.properties}"/>
 

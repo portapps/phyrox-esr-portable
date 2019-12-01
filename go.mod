@@ -1,4 +1,4 @@
-module github.com/portapps/firefox-esr-portable
+module github.com/portapps/phyrox-esr-portable
 
 go 1.12
 

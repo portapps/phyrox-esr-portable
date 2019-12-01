@@ -16,7 +16,7 @@ import (
 
 	"github.com/Jeffail/gabs"
 	"github.com/pkg/errors"
-	"github.com/portapps/firefox-esr-portable/assets"
+	"github.com/portapps/phyrox-esr-portable/assets"
 	. "github.com/portapps/portapps"
 	"github.com/portapps/portapps/pkg/dialog"
 	"github.com/portapps/portapps/pkg/mutex"
@@ -61,7 +61,7 @@ func init() {
 	}
 
 	// Init app
-	if app, err = NewWithCfg("firefox-esr-portable", "Firefox ESR", cfg); err != nil {
+	if app, err = NewWithCfg("phyrox-esr-portable", "Phyrox ESR", cfg); err != nil {
 		Log.Fatal().Err(err).Msg("Cannot initialize application. See log file for more info.")
 	}
 }
@@ -183,7 +183,7 @@ pref("browser.startup.homepage_override.mstone", "ignore");
 	}
 
 	// Copy default shortcut
-	shortcutPath := path.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs", "Firefox ESR Portable.lnk")
+	shortcutPath := path.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs", "Phyrox ESR Portable.lnk")
 	defaultShortcut, err := assets.Asset("FirefoxESR.lnk")
 	if err != nil {
 		Log.Error().Err(err).Msg("Cannot load asset FirefoxESR.lnk")
@@ -198,7 +198,7 @@ pref("browser.startup.homepage_override.mstone", "ignore");
 		ShortcutPath:     shortcutPath,
 		TargetPath:       app.Process,
 		Arguments:        shortcut.Property{Clear: true},
-		Description:      shortcut.Property{Value: "Firefox ESR Portable by Portapps"},
+		Description:      shortcut.Property{Value: "Phyrox ESR Portable by Portapps"},
 		IconLocation:     shortcut.Property{Value: app.Process},
 		WorkingDirectory: shortcut.Property{Value: app.AppPath},
 	})
