@@ -15,7 +15,7 @@
 Phyrox ESR (based on Mozilla Firefox ESR) portable app made with 🚀 [Portapps](https://portapps.io).<br />
 Documentation and downloads can be found on https://portapps.io/app/phyrox-esr-portable/
 
-> :warning: Following a trademark violation report (#5) from Mozilla, Firefox ESR portable has been named Phyrox ESR portable on Portapps. Nothing changes except its name.
+> :warning: Following a trademark violation report ([#5](https://github.com/portapps/phyrox-esr-portable/issues/5)) from Mozilla, Firefox ESR portable has been named Phyrox ESR portable on Portapps. Nothing changes except its name.
 
 ## How can I help ?
 
