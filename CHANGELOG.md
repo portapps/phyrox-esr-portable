@@ -1,5 +1,9 @@
 # Changelog
 
+## 68.3.0-27 (2019/12/03)
+
+* Firefox ESR 68.3.0
+
 ## 68.2.0-27 (2019/12/01)
 
 * Following a trademark violation report (#5), name and logo have been changed
