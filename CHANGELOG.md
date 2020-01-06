@@ -1,5 +1,11 @@
 # Changelog
 
+## 68.4.0-28 (2020/01/06)
+
+* Firefox ESR 68.4.0
+* Add `cleanup` config
+* Portapps 1.31.0
+
 ## 68.3.0-27 (2019/12/03)
 
 * Firefox ESR 68.3.0
