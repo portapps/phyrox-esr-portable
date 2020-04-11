@@ -1,5 +1,10 @@
 # Changelog
 
+## 68.6.1-34 (2020/04/12)
+
+* Firefox ESR 68.6.1
+* Portapps 2.0.2
+
 ## 68.6.0-33 (2020/03/12)
 
 * Firefox ESR 68.6.0
