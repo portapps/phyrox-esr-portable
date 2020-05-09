@@ -1,5 +1,12 @@
 # Changelog
 
+## 68.8.0-36 (2020/05/10)
+
+* Firefox ESR 68.8.0
+* Allow custom `policies.json`
+* `DisableTelemetry` and `DisableFirefoxStudies` removed (use policies file instead)
+* Portapps 2.2.4
+
 ## 68.7.0-35 (2020/04/12)
 
 * Firefox ESR 68.7.0
