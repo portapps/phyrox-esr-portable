@@ -1,5 +1,9 @@
 # Changelog
 
+## 68.9.0-37 (2020/06/13)
+
+* Firefox ESR 68.9.0
+
 ## 68.8.0-37 (2020/05/29)
 
 * Fix addons startup (portapps/phyrox-portable#3) 
