@@ -1,5 +1,10 @@
 # Changelog
 
+## 78.2.0-44 (2020/08/24)
+
+* Firefox ESR 78.2.0
+* Portapps 2.6.0
+
 ## 78.1.0-43 (2020/07/31)
 
 * Firefox ESR 78.1.0
