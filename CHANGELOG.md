@@ -4,6 +4,7 @@
 
 * Firefox ESR 78.9.0
 * Portapps 3.3.0
+* No more win32 release
 
 ## 78.7.1-51 (2021/02/06)
 
