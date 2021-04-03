@@ -1,5 +1,10 @@
 # Changelog
 
+## 78.9.0-52 (2021/04/04)
+
+* Firefox ESR 78.9.0
+* Portapps 3.3.0
+
 ## 78.7.1-51 (2021/02/06)
 
 * Firefox ESR 78.7.1
