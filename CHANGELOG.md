@@ -1,5 +1,10 @@
 # Changelog
 
+## 91.8.0-58 (2022/04/19)
+
+* Firefox ESR 91.8.0
+* Portapps 3.5.0
+
 ## 91.5.1-57 (2022/01/27)
 
 * Firefox ESR 91.5.1
