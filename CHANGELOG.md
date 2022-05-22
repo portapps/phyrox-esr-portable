@@ -1,5 +1,12 @@
 # Changelog
 
+## 91.9.1-58 (2022/05/22)
+
+* Firefox ESR 91.9.1
+* Portapps 3.5.0
+* Bump github.com/kevinburke/go-bindata (#33)
+* Bump github.com/pierrec/lz4/v3 from 3.3.4 to 3.3.5 (#43)
+
 ## 91.5.1-57 (2022/01/27)
 
 * Firefox ESR 91.5.1
