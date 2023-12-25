@@ -1,5 +1,10 @@
 # Changelog
 
+## 115.6.0-62 (2023/12/25)
+
+* Firefox ESR 115.6.0
+* Portapps 3.9.0
+
 ## 115.0-61 (2023/07/03)
 
 * Firefox ESR 115.0
