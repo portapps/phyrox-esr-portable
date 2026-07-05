@@ -1,5 +1,10 @@
 # Changelog
 
+## 140.12.0-67 (2026/07/05)
+
+* Firefox ESR 140.12.0
+* Modernize portability policies and privacy controls
+
 ## 140.10.2-66 (2026/05/11)
 
 * Firefox ESR 140.10.2
