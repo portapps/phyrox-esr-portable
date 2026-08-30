@@ -15,10 +15,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/portapps/phyrox-esr-portable/assets"
 	"github.com/portapps/portapps/v3"
+	"github.com/portapps/portapps/v3/pkg/files"
 	"github.com/portapps/portapps/v3/pkg/log"
 	"github.com/portapps/portapps/v3/pkg/mutex"
 	"github.com/portapps/portapps/v3/pkg/shortcut"
-	"github.com/portapps/portapps/v3/pkg/utl"
 	"github.com/portapps/portapps/v3/pkg/win"
 )
 
@@ -60,8 +60,12 @@ func init() {
 }
 
 func main() {
-	utl.CreateFolder(app.DataPath)
-	profileFolder := utl.CreateFolder(app.DataPath, "profile", cfg.Profile)
+	profileFolder := filepath.Join(app.DataPath, "profile", cfg.Profile)
+	for _, dir := range []string{app.DataPath, profileFolder} {
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			log.Fatal().Err(err).Msgf("Cannot create directory %s", dir)
+		}
+	}
 
 	app.Process = filepath.Join(app.AppPath, "firefox.exe")
 	app.Args = []string{
@@ -70,8 +74,13 @@ func main() {
 	}
 
 	// Set env vars
-	crashreporterFolder := utl.CreateFolder(app.DataPath, "crashreporter")
-	pluginsFolder := utl.CreateFolder(app.DataPath, "plugins")
+	crashreporterFolder := filepath.Join(app.DataPath, "crashreporter")
+	pluginsFolder := filepath.Join(app.DataPath, "plugins")
+	for _, dir := range []string{crashreporterFolder, pluginsFolder} {
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			log.Fatal().Err(err).Msgf("Cannot create directory %s", dir)
+		}
+	}
 	os.Setenv("MOZ_CRASHREPORTER_DATA_DIRECTORY", crashreporterFolder)
 	os.Setenv("MOZ_MAINTENANCE_SERVICE", "0")
 	os.Setenv("MOZ_PLUGIN_PATH", pluginsFolder)
@@ -107,11 +116,11 @@ func main() {
 	// Cleanup on exit
 	if cfg.Cleanup {
 		defer func() {
-			utl.Cleanup([]string{
+			files.Cleanup(
 				filepath.Join(os.Getenv("APPDATA"), "Mozilla", "Firefox"),
 				filepath.Join(os.Getenv("LOCALAPPDATA"), "Mozilla", "Firefox"),
 				filepath.Join(os.Getenv("USERPROFILE"), "AppData", "LocalLow", "Mozilla"),
-			})
+			)
 		}()
 	}
 
@@ -133,11 +142,14 @@ func main() {
 	}
 
 	// Autoconfig
-	prefFolder := utl.CreateFolder(app.AppPath, "defaults/pref")
+	prefFolder := filepath.Join(app.AppPath, "defaults/pref")
+	if err := os.MkdirAll(prefFolder, 0o755); err != nil {
+		log.Fatal().Err(err).Msg("Cannot create preferences directory")
+	}
 	autoconfig := filepath.Join(prefFolder, "autoconfig.js")
-	if err := utl.CreateFile(autoconfig, `//
+	if err := os.WriteFile(autoconfig, []byte(`//
 pref("general.config.filename", "portapps.cfg");
-pref("general.config.obscure_value", 0);`); err != nil {
+pref("general.config.obscure_value", 0);`), 0o644); err != nil {
 		log.Fatal().Err(err).Msg("Cannot write autoconfig.js")
 	}
 
@@ -215,7 +227,11 @@ lockPref("toolkit.crashreporter.enabled", false);
 }
 
 func createPolicies(locale string) error {
-	appFile := filepath.Join(utl.CreateFolder(app.AppPath, "distribution"), "policies.json")
+	distributionPath := filepath.Join(app.AppPath, "distribution")
+	if err := os.MkdirAll(distributionPath, 0o755); err != nil {
+		return errors.Wrap(err, "Cannot create distribution directory")
+	}
+	appFile := filepath.Join(distributionPath, "policies.json")
 	dataFile := filepath.Join(app.DataPath, "policies.json")
 	jsonPolicies := map[string]interface{}{
 		"policies": map[string]interface{}{},
@@ -226,7 +242,7 @@ func createPolicies(locale string) error {
 	}
 	log.Debug().Msgf("Default policies: %s", string(defaultPolicies))
 
-	if utl.Exists(dataFile) {
+	if files.Exists(dataFile) {
 		rawCustomPolicies, err := os.ReadFile(dataFile)
 		if err != nil {
 			return errors.Wrap(err, "Cannot read custom policies")
@@ -275,7 +291,10 @@ func createPolicies(locale string) error {
 func checkLocale() (string, error) {
 	extSourceFile := fmt.Sprintf("%s.xpi", cfg.Locale)
 	extDestFile := fmt.Sprintf("langpack-%s@firefox.mozilla.org.xpi", cfg.Locale)
-	extsFolder := utl.CreateFolder(app.AppPath, "distribution", "extensions")
+	extsFolder := filepath.Join(app.AppPath, "distribution", "extensions")
+	if err := os.MkdirAll(extsFolder, 0o755); err != nil {
+		return defaultLocale, errors.Wrap(err, "Cannot create extensions directory")
+	}
 	localeXpi := filepath.Join(app.AppPath, "langs", extSourceFile)
 
 	// If default locale skip (already embedded)
@@ -284,12 +303,12 @@ func checkLocale() (string, error) {
 	}
 
 	// Check .xpi file exists
-	if !utl.Exists(localeXpi) {
+	if !files.Exists(localeXpi) {
 		return defaultLocale, fmt.Errorf("XPI file does not exist in %s", localeXpi)
 	}
 
 	// Copy .xpi
-	if err := utl.CopyFile(localeXpi, filepath.Join(extsFolder, extDestFile)); err != nil {
+	if err := files.CopyFile(localeXpi, filepath.Join(extsFolder, extDestFile)); err != nil {
 		return defaultLocale, err
 	}
 
@@ -298,7 +317,7 @@ func checkLocale() (string, error) {
 
 func updateAddonStartup(profileFolder string) error {
 	lz4File := filepath.Join(profileFolder, "addonStartup.json.lz4")
-	if !utl.Exists(lz4File) || app.Prev.RootPath == "" {
+	if !files.Exists(lz4File) || app.Prev.RootPath == "" {
 		return nil
 	}
 
@@ -307,13 +326,13 @@ func updateAddonStartup(profileFolder string) error {
 		return err
 	}
 
-	prevPathLin := strings.Replace(utl.FormatUnixPath(app.Prev.RootPath), ` `, `%20`, -1)
-	currPathLin := strings.Replace(utl.FormatUnixPath(app.RootPath), ` `, `%20`, -1)
-	lz4Str := strings.Replace(string(lz4Raw), prevPathLin, currPathLin, -1)
+	prevPathLin := escapedUnixPath(app.Prev.RootPath)
+	currPathLin := escapedUnixPath(app.RootPath)
+	lz4Str := strings.ReplaceAll(string(lz4Raw), prevPathLin, currPathLin)
 
-	prevPathWin := strings.Replace(strings.Replace(utl.FormatWindowsPath(app.Prev.RootPath), `\`, `\\`, -1), ` `, `%20`, -1)
-	currPathWin := strings.Replace(strings.Replace(utl.FormatWindowsPath(app.RootPath), `\`, `\\`, -1), ` `, `%20`, -1)
-	lz4Str = strings.Replace(lz4Str, prevPathWin, currPathWin, -1)
+	prevPathWin := escapedWindowsPath(app.Prev.RootPath)
+	currPathWin := escapedWindowsPath(app.RootPath)
+	lz4Str = strings.ReplaceAll(lz4Str, prevPathWin, currPathWin)
 
 	lz4Enc, err := mozLz4Compress([]byte(lz4Str))
 	if err != nil {
@@ -321,4 +340,12 @@ func updateAddonStartup(profileFolder string) error {
 	}
 
 	return os.WriteFile(lz4File, lz4Enc, 0644)
+}
+
+func escapedUnixPath(path string) string {
+	return strings.ReplaceAll(filepath.ToSlash(path), ` `, `%20`)
+}
+
+func escapedWindowsPath(path string) string {
+	return strings.ReplaceAll(strings.ReplaceAll(filepath.FromSlash(path), `\`, `\\`), ` `, `%20`)
 }
