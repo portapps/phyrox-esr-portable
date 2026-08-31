@@ -1,9 +1,8 @@
-//go:generate go install -v github.com/kevinburke/go-bindata/v4/go-bindata
-//go:generate go-bindata -prefix res/ -pkg assets -o assets/assets.go res/FirefoxESR.lnk
 //go:generate go install -v github.com/josephspurrier/goversioninfo/cmd/goversioninfo
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -13,7 +12,6 @@ import (
 	"text/template"
 
 	"github.com/pkg/errors"
-	"github.com/portapps/phyrox-esr-portable/assets"
 	"github.com/portapps/portapps/v3"
 	"github.com/portapps/portapps/v3/pkg/files"
 	"github.com/portapps/portapps/v3/pkg/log"
@@ -21,6 +19,9 @@ import (
 	"github.com/portapps/portapps/v3/pkg/shortcut"
 	"github.com/portapps/portapps/v3/pkg/win"
 )
+
+//go:embed res/FirefoxESR.lnk
+var defaultShortcut []byte
 
 type config struct {
 	Profile              string `yaml:"profile" mapstructure:"profile"`
@@ -195,10 +196,6 @@ lockPref("toolkit.crashreporter.enabled", false);
 
 	// Copy default shortcut
 	shortcutPath := filepath.Join(os.Getenv("APPDATA"), "Microsoft", "Windows", "Start Menu", "Programs", "Phyrox ESR Portable.lnk")
-	defaultShortcut, err := assets.Asset("FirefoxESR.lnk")
-	if err != nil {
-		log.Error().Err(err).Msg("Cannot load asset FirefoxESR.lnk")
-	}
 	err = os.WriteFile(shortcutPath, defaultShortcut, 0644)
 	if err != nil {
 		log.Error().Err(err).Msg("Cannot write default shortcut")
